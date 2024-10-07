@@ -12,31 +12,40 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				[Replace this with you answer]
+				Constants should be used only where variables (let) is not possible to use, and where the value cannot be changed. 
+        Not all values can be constant- some values need to change with the data. 
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				[Replace this with you answer]
+		    Parentheses change the order of the operation, meaning parentheses are performed/evaluated before other parts of an expression.
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				[Replace this with you answer]
+				By using the to.Fixed() method, and writing the given number of decimals inside (), e.g. toFixed(2) for two decimals. 
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				[Replace this with you answer]
-			</p>
+				To see if two floating-point values are equal, we can compare them with a tolerance value (Epsilon). 
+        We use the function Math.abs() and set the epsilon value to e.g. 0.000001:
+        <br> <br>
+        const EPSILON = 0.000001; <br>
+        printOut(Math.abs(12.199999 == 12.2) < EPSILON); <br> <br>
+        This calculates the difference between the two numbers, and then compares the difference to the epsilon. 
+        The numbers are equal if the difference is smaller than the epsilon. 
+
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				[Replace this with you answer]
+				Comparison operators return boolean values. To check if they're false or true, we can use if statements. 
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				[Replace this with you answer]
+				Math.random() gives a random number between 0 and 1, always lower than 1 and never exactly 1. 
+        It can be used for generating random numbers between 0 and 1, generating a random number between two values etc. 
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				[Replace this with you answer]
+				The modulus is an operator which returns the division remainder - what's "left over" of a perfect division. 
+        This is useful when we want to determine the remainder of a division operation. 
 			</p>
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
