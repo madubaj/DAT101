@@ -1,96 +1,95 @@
 "use strict";
-import { initPrintOut, printOut, newLine } from "../../common/script/utils.mjs";
+import { initPrintOut, printOut, newLine, NEWLine } from "../../common/script/utils.mjs";
 initPrintOut(document.getElementById("txtOut"));
 
+
 printOut("--- Part 1 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-const answerNumber = 45;
-let guessNumber = 0; 
-while(answerNumber !== guessNumber){
-    guessNumber = Math.ceil(Math.random() * 60);
+let line1 = "";
+let line2 = "";
+for(let i = 1, j = 10; i <= 10; i++, j--){
+    line1 += " " + i.toString();
+    line2 += " " + j.toString();
 }
-printOut("Guess Number = " + guessNumber.toString());
+printOut(line1);
+printOut(line2);
 printOut(newLine);
+
 
 printOut("--- Part 2 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
+const answerNumber = 45;
+let guessNumber = 0; 
+while(answerNumber !== guessNumber) {
+    guessNumber = Math.ceil(Math.random() * 60) + 1;
+}
+printOut("Tall = " + guessNumber.toString());
 printOut(newLine);
+
 
 printOut("--- Part 3 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
+const answerNumber1 = 500000;
+let guessNumber1 = 0; 
+let numberOfGuesses = 0;
+const startMillisec = Date.now();
+while(answerNumber1 !== guessNumber1) {
+    guessNumber1 = Math.ceil(Math.random() * 1000000) + 1;
+    numberOfGuesses++
+}
+printOut("Tall = " + guessNumber1); 
+printOut("Datamaskinen gjettet " + numberOfGuesses + " ganger");
+
+const endMillisec = Date.now();
+const numberOfMillisec = endMillisec - startMillisec;
+printOut("Det tok " + Math.ceil(numberOfMillisec) + " millisekunder");
 printOut(newLine);
 
+
 printOut("--- Part 4 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
+function isPrime(number) {
+    if (number <= 1) return false; 
+    for (let i = 2; i <= Math.sqrt(number); i++){
+        if (number % i === 0) return false;
+    }
+    return true; 
+}
+
 printOut(newLine);
 
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
+let array1 = [
+    "K1R1",
+    "K1R2",
+    "K1R3",
+    "K1R4",
+    "K1R5",
+    "K1R6",
+    "K1R7"
+];
+
+let array2 = [
+    "K1R1", "K2R1", "K3R1", "K4R1", "K5R1", "K6R1", "K7R1", "K8R1", "K9R1"
+];
+
+const rowSize = 7; 
+const colSize = 9; 
+
+for (let row = 0; row < array1.length; row++) {
+    printOut (array1[row] + "&nbsp;&nbsp;");
+
+    for (let col = 0; col < array2.length; col++) {
+    printOut(array2[col] + "&nbsp;&nbsp;");
+    
+    }
+    printOut(newLine);
+}
+
 printOut(newLine);
 
 printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
+
+
+
 printOut(newLine);
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
 printOut("Dice Rolling Extravaganza");
-
-const d1 = Math.ceil(Math.random() = 6);
-const d2 = Math.ceil(Math.random() = 5);
-const d3 = Math.ceil(Math.random() = 4);
-const d4 = Math.ceil(Math.random() = 3);
-const d5 = Math.ceil(Math.random() = 2);
-const d6 = Math.ceil(Math.random() = 1);
-
-let diceThrow = ""; 
-diceThrow += d1.toString() + ",";
-diceThrow += d2.toString()  + ",";
-diceThrow += d3.toString() + ","; 
-diceThrow += d4.toString() + ",";
-diceThrow += d5.toString() + ",";
-diceThrow += d6.toString();
-
-printOut("diceThrow: " + diceThrow);
-
-const count1 = (diceThrow.match(/1/g) || "").length);
-const count2 = (diceThrow.match(/2/g) || "").length);
-const count3 = (diceThrow.match(/3/g) || "").length);
-const count4 = (diceThrow.match(/4/g) || "").length);
-const count5 = (diceThrow.match(/5/g) || "").length);
-const count6 = (diceThrow.match(/6/g) || "").length); 
-
-let diceCount = "";
-diceCount += count1.toString() + ",";
-diceCount += count2.toString() + ",";
-diceCount += count3.toString() + ",";
-diceCount += count4.toString() + ",";
-diceCount += count5.toString() + ",";
-diceCount += count6.toString() + ",";
-
-printOut("diceCount: " + diceCount);
-
-
-
-printOut(newLine);
-
-printOut("--- Part 8 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
-printOut(newLine);
-
-printOut("--- Part 9 ----------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
-printOut(newLine);
-
-/* Task 10*/
-printOut("--- Part 10 ---------------------------------------------------------------------------------------------");
-/* Put your code below here!*/
-printOut("Replace this with you answer!");
 printOut(newLine);
