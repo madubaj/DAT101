@@ -2,7 +2,8 @@
 import libSound from "../../common/libs/libSound.mjs";
 import libSprite from "../../common/libs/libSprite.mjs";
 import lib2d from "../../common/libs/lib2d.mjs";
-
+import THero from "./hero.mjs";
+import TObstacle from "./obstacle.mjs";
 
 //--------------- Objects and Variables ----------------------------------//
 const chkMuteSound = document.getElementById("chkMuteSound");
@@ -35,8 +36,8 @@ export const GameProps = {
   background: null,
   ground: null, 
   hero: null,
+  obstacles: [],
 };
-
 
 //--------------- Functions ----------------------------------------------//
 
@@ -59,30 +60,58 @@ function loadGame() {
   GameProps.ground = new libSprite.TSprite(spcvs, SpriteInfoList.ground, pos); 
   pos.x = 100;
   pos.y = 100; 
-  GameProps.hero = new libSprite.TSprite(spcvs,SpriteInfoList.hero1, pos);
-  GameProps.hero.animateSpeed = 10; 
+  GameProps.hero = new THero (spcvs,SpriteInfoList.hero1, pos);
   
-  requestAnimationFrame(drawGame); 
-  setInterval(animateGame, 10); 
+  spawnObstacle ();
+
+  requestAnimationFrame(drawGame);
+  setInterval(animateGame, 10);
+  
+
 }
 
 function drawGame() {
   spcvs.clearCanvas();
   GameProps.background.draw();
+  drawObstacles();
   GameProps.ground.draw();
   GameProps.hero.draw();
-
   requestAnimationFrame(drawGame);
+}
+
+function drawObstacles(){
+  for(let i = 0; i < GameProps.obstacles.length; i++) {
+    const obstacle = GameProps.obstacles[i];
+    obstacle.draw();
+  }
 }
 
 function animateGame() {
   GameProps.ground.translate(-GameProps.speed, 0); 
-  if(GameProps.ground.posX <= SpriteInfoList.background.width){
+  if(GameProps.ground.posX <= -SpriteInfoList.background.width){
     GameProps.ground.posX = 0; 
   }
-  
+  GameProps.hero.update();
+  let delObstacleIndex = -1;
+  for(let i = 0; i < GameProps.obstacles.length; i++){
+    const obstacle = GameProps.obstacles[i];
+    obstacle.update(); 
+    if(obstacle.posX < -100){
+      delObstacleIndex = i;
+    }
+  }
+  if(delObstacleIndex >= 0){
+    GameProps.obstacles.splice(delObstacleIndex, 1);
+  }
 }
 
+function spawnObstacle(){
+  const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+  GameProps.obstacles.push(obstacle);
+  const seconds = Math.ceil(Math.random() * 5) + 2; //endre på 5 for å få tettere obstacles 
+  setTimeout(spawnObstacle, seconds * 1000);
+  console.log("Obstacle spawned in " + seconds + "seconds");
+}
 
 //--------------- Event Handlers -----------------------------------------//
 
@@ -106,10 +135,19 @@ function setDayNight() {
   }
 } // end of setDayNight
 
+function onKeyDown(aEvent){
+  switch (aEvent.code){
+    case "Space": 
+    GameProps.hero.flap();
+    break;
+  }
+}
+
 //--------------- Main Code ----------------------------------------------//
 chkMuteSound.addEventListener("change", setSoundOnOff);
 rbDayNight[0].addEventListener("change", setDayNight);
 rbDayNight[1].addEventListener("change", setDayNight);
+document.addEventListener("keydown", onKeyDown); 
 
 // Load the sprite sheet
 spcvs.loadSpriteSheet("./Media/FlappyBirdSprites.png", loadGame)

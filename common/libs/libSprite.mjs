@@ -93,6 +93,11 @@ translate (aDx, aDy) {
     this.#pos.x = aX;
     this.#pos.y = aY; 
   }
+
+  set index(aIndex){
+    this.#index = aIndex;
+  }
+
 } 
 
 
@@ -111,9 +116,9 @@ export default {
       /**
      * @class TSprite 
      * @description A class that manage sprite animations. 
-     * @parameters {TSpriteCanvas} aSpriteCanvas - The sprite canvas to use. 
-     * @parameters {object} aSpriteInfo - The sprite information. 
-     * @parameters {TPosition} aPosition - The position of the sprite. 
+     * @param {TSpriteCanvas} aSpriteCanvas - The sprite canvas to use. 
+     * @param {object} aSpriteInfo - The sprite information. 
+     * @param {TPosition} aPosition - The position of the sprite. 
      * @function draw - Draws the sprite on the canvas. 
      */ 
     TSprite: TSprite,

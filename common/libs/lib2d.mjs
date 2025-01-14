@@ -36,15 +36,15 @@ export default {
     /**
      * @class TPoint
      * @description A class representation for x and y point in 2D. 
-     * @parameter (number) aX - The x-coordinate.
-     * @parameter (number) aY - The y-coordinate. 
+     * @param {number} aX - The x-coordinate.
+     * @param {number} aY - The y-coordinate. 
      */
     TPoint,
     /**
      * @class TPosition
      * @description A position class for manipulation of point in 2D. 
-     * @parameter (number) aX - The x-coordinate.
-     * @parameter (number) aY - The y-coordinate.
+     * @param {number} aX - The x-coordinate.
+     * @param {number} aY - The y-coordinate.
      * @extends TPoint 
      * @method clone - A method to clone the position object. 
      * @method distanceToPoint - A method to calculate the distance to another point. 
