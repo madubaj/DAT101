@@ -1,4 +1,5 @@
 "use strict";
+import lib2d from "./lib2d.mjs";
 
 /**
  * @library libSprite
@@ -21,9 +22,9 @@ class TSpriteCanvas {
     this.#img.src = aFileName;
   }
 
-  drawSprite(aSpriteInfo, aDx = 0, aDy = 0, aIndex = 0) {
+  drawSprite(aSpriteInfo, aDx = 0, aDy = 0, aIndex = 0, aRot = 0) {
     let index = aIndex;
-    const sx = aSpriteInfo.x + (index * aSpriteInfo.width);
+    const sx = aSpriteInfo.x + index * aSpriteInfo.width;
     const sy = aSpriteInfo.y;
     const sw = aSpriteInfo.width;
     const sh = aSpriteInfo.height;
@@ -31,76 +32,100 @@ class TSpriteCanvas {
     const dy = aDy;
     const dw = sw;
     const dh = sh;
-    this.#ctx.drawImage(this.#img, sx, sy, sw, sh, dx, dy, dw, dh);
+    if (aRot !== 0) {
+      const cx = dx + dw / 2; //cx = centerX
+      const cy = dy + dh / 2; //cy = centerY
+      const rad = (aRot * Math.PI) / 180;
+      this.#ctx.translate(cx, cy);
+      this.#ctx.rotate(rad);
+      this.#ctx.drawImage(this.#img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
+      this.#ctx.rotate(-rad);
+      this.#ctx.translate(-cx, -cy);
+    } else {
+      this.#ctx.drawImage(this.#img, sx, sy, sw, sh, dx, dy, dw, dh);
+    }
   }
 
-  clearCanvas(){
+  clearCanvas() {
     this.#ctx.clearRect(0, 0, this.#cvs.width, this.#cvs.height);
   }
 }
 
 class TSprite {
-  #spcvs; 
+  #spcvs;
   #spi;
   #pos;
   #index;
   #speedIndex;
   constructor(aSpriteCanvas, aSpriteInfo, aPosition) {
-  this.#spcvs = aSpriteCanvas;
-  this.#spi = aSpriteInfo; 
-  this.#pos = aPosition.clone();
-  this.#index = 0;
-  this.animateSpeed = 0;
-  this.#speedIndex = 0; 
-}
+    this.#spcvs = aSpriteCanvas;
+    this.#spi = aSpriteInfo;
+    this.#pos = aPosition.clone();
+    this.#index = 0;
+    this.animateSpeed = 0;
+    this.#speedIndex = 0;
+    this.boundingBox = new lib2d.TRectangle(this.#pos.x, this.#pos.y, this.#spi.width, this.#spi.height);
+    this.rotation = 0;
+  }
 
-draw () {
-  if(this.animateSpeed > 0) {
+  draw() {
+    if (this.animateSpeed > 0) {
       this.#speedIndex += this.animateSpeed / 100;
-      if(this.#speedIndex >= 1) {
+      if (this.#speedIndex >= 1) {
         this.#index++;
         this.#speedIndex = 0;
-        if(this.#index >= this.#spi.count) {
+        if (this.#index >= this.#spi.count) {
           this.#index = 0;
         }
       }
     }
-  this.#spcvs.drawSprite(this.#spi, this.#pos.x, this.#pos.y, this.#index);
+    this.#spcvs.drawSprite(this.#spi, this.#pos.x, this.#pos.y, this.#index, this.rotation);
   }
 
-translate (aDx, aDy) {
-  this.#pos.x += aDx;
-  this.#pos.y += aDy; 
+  translate(aDx, aDy) {
+    this.#pos.x += aDx;
+    this.#pos.y += aDy;
+    this.boundingBox.x += aDx;
+    this.boundingBox.y += aDy;
   }
 
   get posX() {
     return this.#pos.x;
   }
-  
+
   get posY() {
     return this.#pos.y;
   }
-  
+
   set posX(aX) {
     this.#pos.x = aX;
-  }
-  
-  set posY(aY) {
-    this.#pos.y = aY;
-  }
-  
-  setPos(aX,aY) {
-    this.#pos.x = aX;
-    this.#pos.y = aY; 
+    this.boundingBox.x = aX;
   }
 
-  set index(aIndex){
+  set posY(aY) {
+    this.#pos.y = aY;
+    this.boundingBox.y = aY;
+  }
+
+  setPos(aX, aY) {
+    this.#pos.x = aX;
+    this.#pos.y = aY;
+    this.boundingBox.x = aX;
+    this.boundingBox.y = aY;
+  }
+
+  get index() {
+    return this.#index;
+  }
+
+  set index(aIndex) {
     this.#index = aIndex;
   }
 
-} 
-
-
+  hasCollided(aSprite) {
+    return this.boundingBox.isInsideRect(aSprite.boundingBox);
+  }
+}
 
 export default {
   /**
@@ -113,13 +138,13 @@ export default {
    */
   TSpriteCanvas: TSpriteCanvas,
 
-      /**
-     * @class TSprite 
-     * @description A class that manage sprite animations. 
-     * @param {TSpriteCanvas} aSpriteCanvas - The sprite canvas to use. 
-     * @param {object} aSpriteInfo - The sprite information. 
-     * @param {TPosition} aPosition - The position of the sprite. 
-     * @function draw - Draws the sprite on the canvas. 
-     */ 
-    TSprite: TSprite,
+  /**
+   * @class TSprite
+   * @description A class that manage sprite animations.
+   * @param {TSpriteCanvas} aSpriteCanvas - The sprite canvas to use.
+   * @param {object} aSpriteInfo - The sprite information.
+   * @param {TPosition} aPosition - The position of the sprite.
+   * @function draw - Draws the sprite on the canvas.
+   */
+  TSprite: TSprite,
 };
