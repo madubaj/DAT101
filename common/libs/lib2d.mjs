@@ -62,6 +62,42 @@ class TRectangle extends TPosition {
     if (this.bottom <= aRect.top) return false;
     return true;
   }
+
+  isPositionInside(aPosition) {
+    if (this.left >= aPosition.x) return false;
+    if (this.right <= aPosition.x) return false;
+    if (this.top >= aPosition.y) return false;
+    if (this.bottom <= aPosition.y) return false;
+    return true;
+  }
+
+  get center() {
+    return new TPosition(this.x + this.width / 2, this.y + this.height / 2);
+  }
+
+  set center(aPoint) {
+    this.x = aPoint.x - this.width / 2;
+    this.y = aPoint.y - this.height / 2;
+  }
+}
+
+const RAD = Math.PI / 180;
+
+class TSineWave {
+  #amplitude;
+  #frequency;
+  #angle;
+  constructor(aAmplitude, aFrequency) {
+    this.#amplitude = aAmplitude;
+    this.#frequency = aFrequency;
+    this.#angle = 0;
+  }
+
+  get value() {
+    let value = this.#amplitude * Math.sin(this.#angle * RAD);
+    this.#angle += this.#frequency;
+    return value;
+  }
 }
 
 export default {
@@ -86,16 +122,24 @@ export default {
    * @class TRectangle
    * @extends TPosition
    * @description A class representation for a rectangle in 2D.
-   * @param {number} aX - The x-coordinate. 
-   * @param {number} aY - The y-coordinate. 
-   * @param {number} aWidth - The width of the rectangle. 
-   * @param {number} aHeight - The height of the rectangle. 
-   * @property {number} width - The width of the rectangle. 
-   * @property {number} height - The height of the rectangle. 
-   * @property {number} left - The left side of the rectangle. 
-   * @property {number} right - The right side of the rectangle. 
-   * @property {number} top - The top side of the rectangle. 
-   * @property {number} bottom - The bottom side of the rectangle. 
+   * @param {number} aX - The x-coordinate.
+   * @param {number} aY - The y-coordinate.
+   * @param {number} aWidth - The width of the rectangle.
+   * @param {number} aHeight - The height of the rectangle.
+   * @property {number} width - The width of the rectangle.
+   * @property {number} height - The height of the rectangle.
+   * @property {number} left - The left side of the rectangle.
+   * @property {number} right - The right side of the rectangle.
+   * @property {number} top - The top side of the rectangle.
+   * @property {number} bottom - The bottom side of the rectangle.
    */
   TRectangle,
+  /**
+   * @class TSineWave
+   * @description A class representation for sine wave.
+   * @param {number} aAmplitude - the amplitude of the wave.
+   * @param {number} aFrequency - the frequency of the wave.
+   * @property {number} value - the next value of the wave.
+   */
+  TSineWave,
 };
