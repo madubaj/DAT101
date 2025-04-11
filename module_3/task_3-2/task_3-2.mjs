@@ -12,84 +12,141 @@ for(let i = 1, j = 10; i <= 10; i++, j--){
 }
 printOut(line1);
 printOut(line2);
+
 printOut(newLine);
+
+
+
 
 
 printOut("--- Part 2 ----------------------------------------------------------------------------------------------");
-const answerNumber = 45;
+const answerNumber = 40;
 let guessNumber = 0; 
 while(answerNumber !== guessNumber) {
-    guessNumber = Math.ceil(Math.random() * 60) + 1;
+    guessNumber = Math.ceil(Math.random() * 60);
 }
-printOut("Tall = " + guessNumber.toString());
+printOut("Guess Number = " + guessNumber.toString());
 printOut(newLine);
+
+
 
 
 printOut("--- Part 3 ----------------------------------------------------------------------------------------------");
-const answerNumber1 = 500000;
-let guessNumber1 = 0; 
+const answerNumber2 = 6785;
+let guessNumber2 = 0; 
 let numberOfGuesses = 0;
-const startMillisec = Date.now();
-while(answerNumber1 !== guessNumber1) {
-    guessNumber1 = Math.ceil(Math.random() * 1000000) + 1;
-    numberOfGuesses++
+const startTime = Date.now();
+while(answerNumber2 !== guessNumber2) {
+    guessNumber2 = Math.ceil(Math.random() * 1000000);
+    numberOfGuesses++;
 }
-printOut("Tall = " + guessNumber1); 
-printOut("Datamaskinen gjettet " + numberOfGuesses + " ganger");
+printOut("Guess Number = " + guessNumber2); 
+printOut("Datamaskinen gjettet " + numberOfGuesses + " ganger.");
 
-const endMillisec = Date.now();
-const numberOfMillisec = endMillisec - startMillisec;
-printOut("Det tok " + Math.ceil(numberOfMillisec) + " millisekunder");
+const endTime = Date.now();
+const timeUsed = endTime - startTime;
+printOut("Det tok " + Math.ceil(timeUsed) + " millisekunder.");
 printOut(newLine);
 
-
 printOut("--- Part 4 ----------------------------------------------------------------------------------------------");
-function isPrime(number) {
-    if (number <= 1) return false; 
-    for (let i = 2; i <= Math.sqrt(number); i++){
-        if (number % i === 0) return false;
+for(let number = 2; number < 200; number++) {
+    let isPrime = true; 
+    let divider = 2; 
+    while (divider < number) {
+        if (number % divider === 0) {
+            isPrime = false;
+            break;
+        }
+        divider++; 
     }
-    return true; 
+    if (isPrime) {
+        printOut(number + " ");
+    }
 }
 
 printOut(newLine);
 
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
-let array1 = [
-    "K1R1",
-    "K1R2",
-    "K1R3",
-    "K1R4",
-    "K1R5",
-    "K1R6",
-    "K1R7"
-];
+const rowLength = 7;
+const colLength = 9; 
 
-let array2 = [
-    "K1R1", "K2R1", "K3R1", "K4R1", "K5R1", "K6R1", "K7R1", "K8R1", "K9R1"
-];
-
-const rowSize = 7; 
-const colSize = 9; 
-
-for (let row = 0; row < array1.length; row++) {
-    printOut (array1[row] + "&nbsp;&nbsp;");
-
-    for (let col = 0; col < array2.length; col++) {
-    printOut(array2[col] + "&nbsp;&nbsp;");
-    
+for (let i = 1; i <= rowLength; i++) {
+    let row = "";
+    for (let j = 1; j <= colLength; j++) {
+        row += "K" + [j] + "R" + [i] + " ";
     }
-    printOut(newLine);
+    printOut(row); 
 }
-
 printOut(newLine);
 
 printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
+for (let i = 1; i <= 5; i++) {
+    let grade = Math.floor(Math.random() * 236) + 1; 
+    let gradePercentage = Math.floor((grade / 236) * 100); 
+    let studentGrade; 
 
-
+    if (gradePercentage >= 89) {
+        studentGrade = "A"; 
+    }else if (gradePercentage >= 77) {
+        studentGrade = "B"; 
+    }else if (gradePercentage >= 65) {
+        studentGrade = "C"; 
+    }else if (gradePercentage >= 53) {
+        studentGrade = "D"; 
+    }else if (gradePercentage >= 41) {
+        studentGrade = "E"; 
+    }else if (gradePercentage >= 0) {
+        studentGrade = "F"; 
+    }
+    printOut("Student " + i + ": Grade " + studentGrade + ", Percentage: " + gradePercentage + "%"); 
+}; 
 
 printOut(newLine);
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
 printOut("Dice Rolling Extravaganza");
+
+const d1 = Math.ceil(Math.random() * 6);
+const d2 = Math.ceil(Math.random() * 6);
+const d3 = Math.ceil(Math.random() * 6);
+const d4 = Math.ceil(Math.random() * 6);
+const d5 = Math.ceil(Math.random() * 6);
+const d6 = Math.ceil(Math.random() * 6);
+
+let diceThrow = "";
+diceThrow += d1.toString() + ",";
+diceThrow += d2.toString() + ",";
+diceThrow += d3.toString() + ",";
+diceThrow += d4.toString() + ",";
+diceThrow += d5.toString() + ",";
+diceThrow += d6.toString();
+
+printOut("diceThrow: " + diceThrow);
+
+const count1 = (diceThrow.match(/1/g) || "").length;
+const count2 = (diceThrow.match(/2/g) || "").length;
+const count3 = (diceThrow.match(/3/g) || "").length;
+const count4 = (diceThrow.match(/4/g) || "").length;
+const count5 = (diceThrow.match(/5/g) || "").length;
+const count6 = (diceThrow.match(/6/g) || "").length;
+
+let diceCount = "";
+diceCount += count1.toString() + ",";
+diceCount += count2.toString() + ",";
+diceCount += count3.toString() + ",";
+diceCount += count4.toString() + ",";
+diceCount += count5.toString() + ",";
+diceCount += count6.toString();
+printOut("diceCount: " + diceCount);
+
+const equals1 = (diceCount.match(/1/g) || "").length;
+const equals6 = (diceCount.match(/6/g) || "").length;
+printOut("equals1: " + equals1.toString());
+printOut("equals6: " + equals6.toString());
+
+if(equals1 === 6){
+  printOut("Full straight");
+}else if(equals6 === 1){
+  printOut("Yatzy!!!");
+}
 printOut(newLine);
