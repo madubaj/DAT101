@@ -10,8 +10,42 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>What is the difference between invoking and creating a function?</li>
+      <p>Creating a function doesn't execute it, only defines it. The code inside a function is only executed when the function is invoked.</p><br>
+
+      <li>Explain the syntax regarding semicolons and code blocks.</li>
+      <p>Semicolons are used to end or separate statements in javascript to prevent potential errors.
+      <br> Code blocks are containers for multiple lines of code.
+      Used with let or const, variables inside the block code is limited to the block in which they are defined. Which means that they are only accessible within that block. 
+      <br>Code blocks are commonly used in functions, loops and if-else statements: 
+      <ul>
+        <li>Code block inside a for loop contains one statement which is executed for each iteration of the loop. Multiple statements can be grouped into one block statement in the for loop. </li>
+        <li>In functions the code blocks contains blocks of code that executes when the function is called.</li>
+        <li> A code block in a conditional are used as the body of the loop, and contain statements that executes when the condition is met.</li>
+      </ul>
+      </p><br>
+
+      <li>What happens when we try to store values from a function when it doesn't return any?</li>
+      <p>Output will be "undefined"</p><br>
+
+      <li>How do we separate parameters from each other when creating a function?</li>
+      <p>Parameters are separated with commas when creating a function.</p><br>
+
+      <li>Explain how parameter names are related during the invocation and creation of a function.</li>
+      <p>
+        When creating a function, you give it parameters. These stores the values the function will use. 
+        When calling the function, you write in the real values the parameters will hold, called arguments. These arguments (the real values) are assigned to the parameters, and during the invocation the parameters receive the values of the arguments.  
+      </p><br>
+
+      <li>Explain why a parameter is undefined when a function call is missing a parameter.</li>
+      <p>
+        The parameter is undefined because the function is called with missing arguments, meaning it's called with less parameters than declared. These missing values are then set to undefined.   
+      </p><br>
+
+      <li>Explain what happens when we use recursive functions.</li>
+      <p>
+        When we use recursive functions, the function calls itself. Each time this happens, the function works on a subproblem  until a base case is reached which then allows the recursion to stop.  
+      </p><br>
     </ol>
     <script type="module" src="./task_3-3.mjs" defer></script>
   </body>
