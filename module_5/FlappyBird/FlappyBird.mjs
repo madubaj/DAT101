@@ -1,7 +1,7 @@
 "use strict";
+import lib2d from "../../common/libs/lib2d.mjs";
 import libSound from "../../common/libs/libSound.mjs";
 import libSprite from "../../common/libs/libSprite.mjs";
-import lib2d from "../../common/libs/lib2d.mjs";
 import THero from "./hero.mjs";
 import TObstacle from "./obstacle.mjs";
 import { TBait } from "./bait.mjs";
@@ -13,7 +13,6 @@ const rbDayNight = document.getElementsByName("rbDayNight");
 const cvs = document.getElementById("cvs");
 const spcvs = new libSprite.TSpriteCanvas(cvs);
 
-// prettier-ignore
 export const SpriteInfoList = {
   hero1:        { x:    0, y: 545, width:   34, height:  24, count:  4 },
   hero2:        { x:    0, y: 569, width:   34, height:  24, count:  4 },
@@ -37,18 +36,21 @@ export const GameProps = {
   soundMuted: false,
   dayTime: true,
   speed: 1,
-  status: EGameStatus.idle,
+  status: EGameStatus.idle, //For testing, normally EGameStatus.idle
   background: null,
   ground: null,
   hero: null,
   obstacles: [],
   baits: [],
   menu: null,
+  score: 0,
+  bestScore: 0,
+  sounds: { countDown: null, food: null, gameOver: null, dead: null, running: null },
 };
 
 //--------------- Functions ----------------------------------------------//
 
-function playSound(aSound) {
+export function playSound(aSound) {
   if (!GameProps.soundMuted) {
     aSound.play();
   } else {
@@ -69,14 +71,18 @@ function loadGame() {
   pos.y = 100;
   GameProps.hero = new THero(spcvs, SpriteInfoList.hero1, pos);
 
-  spawnObstacle();
-  spawnBait();
+  GameProps.menu = new TMenu(spcvs);
+
+  //Load sounds
+  GameProps.sounds.countDown = new libSound.TSoundFile("./Media/countDown.mp3");
+  GameProps.sounds.food = new libSound.TSoundFile("./Media/food.mp3");
+  GameProps.sounds.gameOver = new libSound.TSoundFile("./Media/gameOver.mp3"); 
+  GameProps.sounds.dead = new libSound.TSoundFile("./Media/heroIsDead.mp3"); 
+  GameProps.sounds.running = new libSound.TSoundFile("./Media/running.mp3");
 
   requestAnimationFrame(drawGame);
   setInterval(animateGame, 10);
-
-  GameProps.menu = new TMenu(spcvs);
-}
+} // end of loadGame
 
 function drawGame() {
   spcvs.clearCanvas();
@@ -117,9 +123,15 @@ function animateGame() {
       }
       GameProps.hero.update();
       let delObstacleIndex = -1;
+
       for (let i = 0; i < GameProps.obstacles.length; i++) {
         const obstacle = GameProps.obstacles[i];
         obstacle.update();
+        if (obstacle.right < GameProps.hero.left && !obstacle.hasPassed) {
+          GameProps.menu.incScore(20);
+          console.log("Score: " + GameProps.score);
+          obstacle.hasPassed = true;
+        }
         if (obstacle.posX < -100) {
           delObstacleIndex = i;
         }
@@ -141,6 +153,8 @@ function animateGame() {
       }
       if (delBaitIndex >= 0) {
         GameProps.baits.splice(delBaitIndex, 1);
+        playSound(GameProps.sounds.food);
+        GameProps.menu.incScore(10);
       }
       break;
     case EGameStatus.idle:
@@ -153,7 +167,7 @@ function spawnObstacle() {
   const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
   GameProps.obstacles.push(obstacle);
   if (GameProps.status === EGameStatus.playing) {
-    const seconds = Math.ceil(Math.random() * 5) + 2; //endre på 5 for å få tettere obstacles
+    const seconds = Math.ceil(Math.random() * 5) + 2;
     setTimeout(spawnObstacle, seconds * 1000);
   }
 }
@@ -168,6 +182,17 @@ function spawnBait() {
   }
 }
 
+export function startGame() {
+  GameProps.status = EGameStatus.playing;
+  GameProps.hero = new THero(spcvs, SpriteInfoList.hero1, new lib2d.TPosition(100, 100));
+  GameProps.obstacles = [];
+  GameProps.baits = [];
+  GameProps.menu.reset();
+  spawnObstacle();
+  spawnBait();
+  GameProps.sounds.running.play();
+}
+
 //--------------- Event Handlers -----------------------------------------//
 
 function setSoundOnOff() {
@@ -178,7 +203,7 @@ function setSoundOnOff() {
     GameProps.soundMuted = false;
     console.log("Sound on");
   }
-} // end of setSoundOnOff
+} 
 
 function setDayNight() {
   if (rbDayNight[0].checked) {
@@ -188,7 +213,7 @@ function setDayNight() {
     GameProps.dayTime = false;
     console.log("Night time");
   }
-} // end of setDayNight
+}
 
 function onKeyDown(aEvent) {
   switch (aEvent.code) {
@@ -205,6 +230,5 @@ chkMuteSound.addEventListener("change", setSoundOnOff);
 rbDayNight[0].addEventListener("change", setDayNight);
 rbDayNight[1].addEventListener("change", setDayNight);
 
-// Load the sprite sheet
 spcvs.loadSpriteSheet("./Media/FlappyBirdSprites.png", loadGame);
 document.addEventListener("keydown", onKeyDown);
