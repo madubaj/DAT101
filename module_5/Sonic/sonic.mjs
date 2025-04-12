@@ -37,5 +37,3 @@ function onLoaded(){
   setInterval(animateSprite, 100);
 }
 //--------------- Main Code ----------------------------------------------//
-
-
