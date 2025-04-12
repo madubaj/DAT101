@@ -6,6 +6,8 @@ import lib2d from "./lib2d.mjs";
  * @description A library for classes that manage sprite animations.
  */
 
+const TShape = lib2d.TShape;
+
 class TSpriteCanvas {
   #cvs;
   #ctx;
@@ -35,18 +37,25 @@ class TSpriteCanvas {
     const dy = aDy;
     const dw = sw;
     const dh = sh;
-    if (aRot !== 0) {
-      const cx = dx + dw / 2; //cx = centerX
-      const cy = dy + dh / 2; //cy = centerY
-      const rad = (aRot * Math.PI) / 180;
+    if(aRot !== 0){
+      const cx = dx + dw / 2;
+      const cy = dy + dh / 2;
+      const rad = aRot * Math.PI / 180;
       this.#ctx.translate(cx, cy);
       this.#ctx.rotate(rad);
       this.#ctx.drawImage(this.#img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
       this.#ctx.rotate(-rad);
       this.#ctx.translate(-cx, -cy);
-    } else {
+    }else{
       this.#ctx.drawImage(this.#img, sx, sy, sw, sh, dx, dy, dw, dh);
     }
+  }
+
+  drawText(aText, aPos) {
+    this.#ctx.font = "25px Arial";
+    this.#ctx.fillStyle = "#333333";
+    this.#ctx.textAlign = "right";
+    this.#ctx.fillText(aText, aPos.x, aPos.y);
   }
 
   clearCanvas() {
@@ -112,6 +121,14 @@ class TSprite {
 
   get posY() {
     return this.#pos.y;
+  }
+
+  get left() {
+    return this.#pos.x;
+  }
+
+  get right() {
+    return this.#pos.x + this.#spi.width;
   }
 
   set posX(aX) {

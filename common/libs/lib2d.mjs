@@ -2,7 +2,6 @@
 /**
  * @library lib2d
  * @description A library for classes that manage 20 graphics.
- *
  */
 
 class TPoint {
@@ -29,8 +28,6 @@ class TPosition extends TPoint {
     return Math.hypot(dx, dy);
   }
 }
-
-// End of TPosition class (Vi har funnet distansen mellom to punkter med distanceToPoint)
 
 class TRectangle extends TPosition {
   constructor(aX, aY, aWidth, aHeight) {
