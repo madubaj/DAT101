@@ -177,15 +177,6 @@ printOut(newLine);
 
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
-/*
-Create a function that takes 3 arguments and returns the following calculation:
-    Speed = Distance / Time
-If speed is missing, calculate speed. 
-If time is missing, calculate time. 
-If distance is missing, calculate the distance. 
-If more than one parameter is missing, return NaN. 
-*/
-
 function calculate(missingType, speed, distance, time) {
 
     switch (missingType) {
