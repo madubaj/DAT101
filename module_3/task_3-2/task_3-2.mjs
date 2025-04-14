@@ -12,24 +12,16 @@ for(let i = 1, j = 10; i <= 10; i++, j--){
 }
 printOut(line1);
 printOut(line2);
-
 printOut(newLine);
-
-
-
-
 
 printOut("--- Part 2 ----------------------------------------------------------------------------------------------");
 const answerNumber = 40;
 let guessNumber = 0; 
 while(answerNumber !== guessNumber) {
-    guessNumber = Math.ceil(Math.random() * 60);
+    guessNumber = Math.ceil(Math.random() * 60) + 1;
 }
 printOut("Guess Number = " + guessNumber.toString());
 printOut(newLine);
-
-
-
 
 printOut("--- Part 3 ----------------------------------------------------------------------------------------------");
 const answerNumber2 = 6785;
@@ -63,7 +55,6 @@ for(let number = 2; number < 200; number++) {
         printOut(number + " ");
     }
 }
-
 printOut(newLine);
 
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
@@ -100,12 +91,9 @@ for (let i = 1; i <= 5; i++) {
     }
     printOut("Student " + i + ": Grade " + studentGrade + ", Percentage: " + gradePercentage + "%"); 
 }; 
-
 printOut(newLine);
 
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
-printOut("Dice Rolling Extravaganza");
-
 const d1 = Math.ceil(Math.random() * 6);
 const d2 = Math.ceil(Math.random() * 6);
 const d3 = Math.ceil(Math.random() * 6);
@@ -121,7 +109,7 @@ diceThrow += d4.toString() + ",";
 diceThrow += d5.toString() + ",";
 diceThrow += d6.toString();
 
-printOut("diceThrow: " + diceThrow);
+printOut("Terningkast: " + diceThrow);
 
 const count1 = (diceThrow.match(/1/g) || "").length;
 const count2 = (diceThrow.match(/2/g) || "").length;
@@ -137,16 +125,16 @@ diceCount += count3.toString() + ",";
 diceCount += count4.toString() + ",";
 diceCount += count5.toString() + ",";
 diceCount += count6.toString();
-printOut("diceCount: " + diceCount);
+printOut("Antall: " + diceCount);
 
 const equals1 = (diceCount.match(/1/g) || "").length;
 const equals6 = (diceCount.match(/6/g) || "").length;
-printOut("equals1: " + equals1.toString());
-printOut("equals6: " + equals6.toString());
+printOut("Like1: " + equals1.toString());
+printOut("Like2: " + equals6.toString());
 
 if(equals1 === 6){
-  printOut("Full straight");
+  printOut("Full straight!");
 }else if(equals6 === 1){
-  printOut("Yatzy!!!");
+  printOut("Yatzy!");
 }
 printOut(newLine);

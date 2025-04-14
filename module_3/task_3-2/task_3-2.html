@@ -10,37 +10,30 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>Yes, by declaring two variables (e.g. let line1 and let line2) before the for loop and inside the for loop, and printing both lines in the end.</li>
-      <li>
-        <p>
-          An infinite loop is a never-ending loop: The code keeps running because the conditions are never met. 
-          In this case, it is possible to create an infinite loop within the condition of the while loop. 
-          This is because 
-        </p>     
-      </li>
-      <li>  </li>
-      <li>  </li>
+      <li>In part 1, is it possible to solve the problem using a single "for" loop?</li>
+      <p>Yes, by declaring two variables (e.g. let line1 and let line2) before the for loop and inside the for loop, and printing both lines in the end.</p><br>
+
+      <li>In part 2, can we create what is known as an "infinite" loop within the condition of the "while" loop? Describe what would or would not be necessary to achieve this. Provide a thorough explanation of your answer.</li>
+      <p> An infinite loop is a never-ending loop: The code keeps running because the conditions are never met. In this case, it is possible to create an infinite loop within the condition of the while loop. To achieve this we would have to remove the part from the loop where it generates a random number, like this: <br>
+        while(answerNumber !== guessNumber) {
+        } <br>
+      The code would keep running because the guessing number would never change. <br>
+      The loop could also become infinite if the code never hits the correct number ("answerNumber"), which is less likely than the first explanation. 
+      </p><br>
+      
+      <li>Discuss briefly how quickly or slowly a computer might be able to compute this, considering the number of guesses and the time it takes. How does the program behave while it is guessing? Can the program perform other tasks concurrently?</li>
+      <p>A computer could guess the right number almost instantly, because it runs through a lot of code in very little time and performs operations in seconds.<br>
+      While the computer runs the loop, it generates random numbers and compares them to the "answerNumber" to check if it is the correct number. If the guessed number is not the same, it repeats the cycle.</p><br>
+
+      <li>Explain the relationship between rows and columns in nested "for" loops. Can we, for instance, change the order, considering rows to be innermost or columns to be innermost, or does this not matter?</li>
+      <p>
+        [i] are the rows from 1 to 7 (the R's), while [j] are the columns from 1 to 9 (the K's). The inner loop builds a string with values from all the columns for each of the rows ([i]) then prints that row. The program prints the code row by row, and all the columns within each row at the same time. We then get the output:<br>
+        K1R1 K2R1 K3R1 K4R1 ...<br>
+        K1R2 K2R2 K3R2 ...<br>
+        K1R3 K2R3 K3R3 ...<br>
+        <br>If we changed the order of rows and columns, the output would also change, making columns go from 1 to 7, and rows from 1 to 9. The program would loop through each column (j), and print all the rows (i) within that column for each one. 
+       </p><br>
     </ol>
     <script type="module" src="./task_3-2.mjs" defer></script>
   </body>
 </html>
-
-
-<!--
-
-2. 
-In part 2, can we create what is known as an "infinite" loop within the condition of the "while" loop?
-Describe what would or would not be necessary to achieve this. 
-Provide a thorough explanation of your answer.
-
-3. 
-Discuss briefly how quickly or slowly a computer might be able to compute this, considering the
-number of guesses and the time it takes. How does the program behave while it is guessing? Can
-the program perform other tasks concurrently?
-
-4. 
-Explain the relationship between rows and columns in nested "for" loops. Can we, for instance,
-change the order, considering rows to be innermost or columns to be innermost, or does this not
-matter?
-
--->
