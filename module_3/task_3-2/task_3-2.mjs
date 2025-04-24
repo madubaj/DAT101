@@ -2,7 +2,6 @@
 import { initPrintOut, printOut, newLine, NEWLine } from "../../common/script/utils.mjs";
 initPrintOut(document.getElementById("txtOut"));
 
-
 printOut("--- Part 1 ----------------------------------------------------------------------------------------------");
 let line1 = "";
 let line2 = "";
@@ -137,4 +136,4 @@ if(equals1 === 6){
 }else if(equals6 === 1){
   printOut("Yatzy!");
 }
-printOut(newLine);
+printOut(newLine); 
