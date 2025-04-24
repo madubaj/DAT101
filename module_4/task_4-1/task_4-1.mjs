@@ -15,7 +15,6 @@ const CurrencyTypes = {
     THB: { value: 3.3289, name: "Thai baht", denomination: "฿" }
   };
 
-
 const AccountType = {
     Normal: "Brukskonto",
     Savings: "Sparekonto",
