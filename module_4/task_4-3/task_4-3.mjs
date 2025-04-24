@@ -94,7 +94,7 @@ function cmbTask3CheckAnswerClick() {
    if(checkBox.checked){
     const value = checkBox.value;
     if(value === "4"){
-      text += "Du har valgt nummer " + value + ". Nei, dette er langt fra sant.<br />"
+      text += "Du har valgt nummer " + value + ". Whaat.<br />"
 
     }else{
       text += "Du har valgt nummer " + value + ".<br />"
@@ -171,9 +171,7 @@ const selectMovieGenre = document.getElementById("selectMovieGenre");
 const txtMovieDirector = document.getElementById("txtMovieDirector");
 const txtMovieRate = document.getElementById("txtMovieRate");
 const tblMovies = document.getElementById("tblMovies");
-
-
-
+const cmbAddMovie = document.getElementById("cmbAddMovie");
 
 
 for (let i = 0; i < MovieGenre.length; i++) {
@@ -181,19 +179,52 @@ for (let i = 0; i < MovieGenre.length; i++) {
   option.value = MovieGenre[i];
   option.textContent = MovieGenre[i]; 
   selectMovieGenre.appendChild(option); 
-}
+}; 
 
+let movieCount = 0; 
 
-tblMovies.addEventListener("add", cmbAddMovie); 
+cmbAddMovie.addEventListener("click", function () {
+  movieCount++ 
 
-function cmbAddMovie(event) {
-  tblMovies.textContent = event.target.value; 
+    const title = txtMovieTitle.value.trim() || "-";
+    const genre = selectMovieGenre.value || "-";
+    const director = txtMovieDirector.value.trim() || "-";
+    const rate = txtMovieRate.value || "-";
+  
+    const movie = {
+      nr: movieCount,
+      title: title,
+      genre: genre,
+      director: director,
+      rate: rate
+    };
+  
+    addMovie(movie);
+
+  });
+
+function addMovie(movie) {
+  const row = document.createElement("tr");
+
+  let td = document.createElement("td");
+  td.textContent = movie.nr;
+  row.appendChild(td);
+
+  td = document.createElement("td");
+  td.textContent = movie.title;
+  row.appendChild(td);
+
+  td = document.createElement("td");
+  td.textContent = movie.genre;
+  row.appendChild(td);
+
+  td = document.createElement("td");
+  td.textContent = movie.director;
+  row.appendChild(td);
+
+  td = document.createElement("td");
+  td.textContent = movie.rate;
+  row.appendChild(td);
+
+  tblMovies.appendChild(row);
 };
-
-
-
-/**
-Use the data from filmtittel (movie title), filmsjanger (movie genre), filmregissør (movie
-director), and filmrate (movie rating) and fill in the HTML table every time the user clicks the
-"cmbAddMovie" button. Fill in the data from the MovieGenre array in selectMovieGenre.
- */
