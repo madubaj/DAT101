@@ -218,4 +218,5 @@ for(let row = 0; row < arrays.length; row++){
     printOut(text3)
     text3 = ""; 
 }
+
 printOut(newLine);
