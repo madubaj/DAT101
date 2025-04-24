@@ -28,7 +28,6 @@ function getNumberOfDays(start, end) {
 const daysLeft = getNumberOfDays(dateToday(), "5/14/2025"); 
 
 printOut("It is " + daysLeft + " days left to the release of Elden Ring: Nightreign"); 
-
 printOut(newLine);
 
 
@@ -60,7 +59,6 @@ let results = rectangle(5, 10);
 
 printOut("Circumference: " + results.circumference);
 printOut("Area: " + results.area);
-
 printOut(newLine);
 
 
@@ -108,7 +106,6 @@ function convertTemperature(aTemp, aType) {
 convertTemperature(38, ETempType.Celsius); printOut("");
 convertTemperature(57, ETempType.Fahrenheit); printOut("");
 convertTemperature(62, ETempType.Kelvin); 
-
 printOut(newLine);
 
 
@@ -172,7 +169,6 @@ if(Number.isNaN(netPrice4)) {
 }else{
     printOut(netPrice4.toFixed(2));
 }
-
 printOut(newLine);
 
 
@@ -203,7 +199,6 @@ calculate("speed", null, 50, 2); printOut("");
 calculate("distance", 6, null, 30); printOut("");        
 calculate("time", 70, 105, null); printOut("");        
 calculate("speed", null, 50, null);                  
-
 printOut(newLine);
 
 printOut("--- Part 8 ----------------------------------------------------------------------------------------------");
@@ -220,7 +215,6 @@ function returnString(textString, maxLength, param3, param4) {
 }
 printOut(returnString("Text ", 10, " ' ", true));
 printOut(returnString("String ", 10, " ' ", false)); 
-
 printOut(newLine);
 
 printOut("--- Part 9 ----------------------------------------------------------------------------------------------");
@@ -257,7 +251,6 @@ function testIfMathIsFun() {
     } while (ok);
   }
   testIfMathIsFun();
-  
 printOut(newLine);
 
 printOut("--- Part 10 ---------------------------------------------------------------------------------------------");
