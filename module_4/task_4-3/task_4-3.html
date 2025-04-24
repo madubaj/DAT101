@@ -41,7 +41,7 @@
 <fieldset>
   <legend>Task 4: Cars</legend>
   <p>Please select your favorite car brand!</p>
-  <div id="divTask"></div>
+  <div id="divTask4Cars"></div>
   <p id="txtTask4Output"></p>
 </fieldset>
 <p></p>
@@ -66,22 +66,29 @@
   <label for="selectTask6Girls">Choose a name:</label>
   <select id="selectTask6Girls">
   </select>
-  <p id="txtTask6Output">You selected: </p>
+  <p id="txtTask6Output"></p>
 </fieldset>
 <p></p>
+
 <fieldset>
   <legend>Task 7: Movies</legend>
+
   <label for="txtMovieTitle">Title: </label>
   <input type="text" id="txtMovieTitle" style="width: 15em">
+
   <label for="selectMovieGenre">Genre: </label>
   <select id="selectMovieGenre" style="width: 10em"></select>
+  
   <p></p>
   <label for="txtMovieDirector">Director: </label>
   <input type="text" id="txtMovieDirector" style="width: 21em">
+  
   <label for="txtMovieRate">Rate: </label>
   <input type="number" id="txtMovieRate" min="1" max="10" value="5" style="width: 3em">
   <p></p>
+  
   <input type="button" id="cmbAddMovie" value="Add Movie!">
+  
   <div>
     <h3>My movies:</h3>
     <table id="tblMovies">
@@ -94,7 +101,9 @@
       </tr>
     </table>
   </div>
+
 </fieldset>
+
 <ol>
   <li>In this assignment, we use the DOM. Explain how this library can help us develop interactive web pages</li>
   <p>It allows Javascript to read and manipulate the structure, style and content of a webpage. Basically giving Javascript the access to modify most elements on the page, and create a smooth and interactive web page.</p><br>

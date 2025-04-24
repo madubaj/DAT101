@@ -111,46 +111,89 @@ function cmbTask3CheckAnswerClick() {
 const carDiv = document.getElementById("divTask4Cars");
 const output = document.getElementById("txtTask4Output"); 
 
-function handleCarSelection(event) {
-  if(event.target.checked) {
-    output.textContent = "Du har valgt: " + event.target.value; 
-  }
-}
-
 for (let i = 0; i < CarTypes.length; i++) {
   const car = CarTypes[i]; 
 
-  const radio = document.getElementById("input"); 
+  const radio = document.createElement("input"); 
   radio.type = "radio"; 
   radio.name = "car";
-  radio.value = car;
-  radio.id = "car_" + i; 
+  radio.value = car.caption; 
+  radio.id = "car_" + car.value; 
 
 
   const label = document.createElement("label");
   label.htmlFor = radio.id; 
-  label.textContent = car; 
+  label.textContent = car.caption; 
   
   radio.addEventListener("change", handleCarSelection); 
 
   carDiv.appendChild(radio);
   carDiv.appendChild(label); 
   carDiv.appendChild(document.createElement("br")); 
+};
+
+function handleCarSelection(event) {
+    output.textContent = "Du har valgt: " + event.target.value; 
+}; 
+
+//--- Part 5 ----------------------------------------------------------------------------------------------
+const selectTask5Animals = document.getElementById("selectTask5Animals");
+const txtTask5Output = document.getElementById("txtTask5Output");
+
+selectTask5Animals.addEventListener("change", selectAnimals); 
+
+function selectAnimals(e) {
+  txtTask5Output.textContent = "Du har valgt " + ("(") + e.target.value + (") ") + e.target.options[e.target.selectedIndex].text; 
+}; 
+
+
+//--- Part 6 ----------------------------------------------------------------------------------------------
+const selectTask6Girls = document.getElementById("selectTask6Girls");
+const txtTask6Output = document.getElementById("txtTask6Output");
+
+for (let i = 0; i < GirlsNames.length; i++) {
+  const option = document.createElement("option");
+  option.value = GirlsNames[i];
+  option.textContent = GirlsNames[i]; 
+  selectTask6Girls.appendChild(option); 
 }
+
+selectTask6Girls.addEventListener("change", selectGirls); 
+
+function selectGirls(event) {
+  txtTask6Output.textContent = "Du valgte: " + event.target.value; 
+};
+
+
+//--- Part 7 ----------------------------------------------------------------------------------------------// 
+const txtMovieTitle = document.getElementById("txtMovieTitle");
+const selectMovieGenre = document.getElementById("selectMovieGenre");
+const txtMovieDirector = document.getElementById("txtMovieDirector");
+const txtMovieRate = document.getElementById("txtMovieRate");
+const tblMovies = document.getElementById("tblMovies");
+
+
+
+
+
+for (let i = 0; i < MovieGenre.length; i++) {
+  const option = document.createElement("option");
+  option.value = MovieGenre[i];
+  option.textContent = MovieGenre[i]; 
+  selectMovieGenre.appendChild(option); 
+}
+
+
+tblMovies.addEventListener("add", cmbAddMovie); 
+
+function cmbAddMovie(event) {
+  tblMovies.textContent = event.target.value; 
+};
 
 
 
 /**
-Use a for-loop to add "radio" buttons to the divTask4Cars element. Get the values from the CarTypes
-array. Print the selected car in txtTask4Output.
+Use the data from filmtittel (movie title), filmsjanger (movie genre), filmregissør (movie
+director), and filmrate (movie rating) and fill in the HTML table every time the user clicks the
+"cmbAddMovie" button. Fill in the data from the MovieGenre array in selectMovieGenre.
  */
-
-
-//--- Part 5 ----------------------------------------------------------------------------------------------
-
-
-//--- Part 6 ----------------------------------------------------------------------------------------------
-
-
-
-//--- Part 7 ----------------------------------------------------------------------------------------------// 
