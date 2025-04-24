@@ -94,7 +94,7 @@ function cmbTask3CheckAnswerClick() {
    if(checkBox.checked){
     const value = checkBox.value;
     if(value === "4"){
-      text += "Du har valgt nummer " + value + "."
+      text += "Du har valgt nummer " + value + ". Nei, dette er langt fra sant.<br />"
 
     }else{
       text += "Du har valgt nummer " + value + ".<br />"

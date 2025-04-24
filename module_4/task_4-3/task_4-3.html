@@ -97,18 +97,19 @@
 </fieldset>
 <ol>
   <li>In this assignment, we use the DOM. Explain how this library can help us develop interactive web pages</li>
-  <p>
-    Javascript can read and manipulate the structure, style and content of a webpage through the DOM library.  
-  </p><br>
+  <p>It allows Javascript to read and manipulate the structure, style and content of a webpage. Basically giving Javascript the access to modify most elements on the page, and create a smooth and interactive web page.</p><br>
   
   <li>What is an event? Simply explain what happens when we add an event listener to an object.</li>
-  <p>[Write your answer here, and copy this for more answers]</p><br>
+  <p>Event is a thing that happens when a user interacts on html elements. For example an information box that pops up when a button is clicked. Adding an event listener to an object will make it interactive.</p><br>
   
   <li>Sometimes we need to use an event object to get data from the event. Explain how this event object is structured, don't explain all functions or attributes. Try to explain, for example, how to retrieve data from a keyboard or mouse.</li>
-  <p>[Write your answer here, and copy this for more answers]</p><br>
+  <p>We can say that an event object is structured in three stages: First stage where the retrieved data from the event tells the event object what happened; e.g. if the user clicked a button or key. Second stage where the event data that's retrieved tells where it happened in the program; e.g. which element the event needs to be assigned to. Last stage retrieves the remaining details or information, e.g. what key/button was pressed or where the mouse was positioned.
+  <br>To retrieve data from a keyboard or a mouse, we can add an event listener to a html element, write a function that takes the event object and use the properties of that event object to get the data we want (in this example from the keyboard or mouse).
+  <br>More specifically, we can use "KeyboardEvent" events (or "input" events) with an event type, like keyDown, keyPress or keyUp for user interactions with the keyboard. 
+</p><br>
   
   <li>Explain the main difference between DOM id and DOM name. Can we have identical IDs?</li>
-  <p>[Write your answer here, and copy this for more answers]</p><br>
+  <p>DOM id is a specific id and can only be used in one instance, for one specific element, while DOM names can be used several times. Identical IDs would be hard to maintain and keep track of, and will only cause problems in the program.</p><br>
 </ol>
 <script type="module" src="./task_4-3.mjs" defer></script>
 </body>
