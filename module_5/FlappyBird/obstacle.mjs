@@ -54,6 +54,11 @@ class TObstacle {
   get posX() {
     return this.#upper.posX;
   }
+
+  setSpriteInfo(newInfo) {
+    this.spriteInfo = newInfo; 
+    this.setSpriteInfo(new libSprite.TSprite(this.spcvs, newInfo, this.pos)); 
+  }
 }
 
 export default TObstacle;

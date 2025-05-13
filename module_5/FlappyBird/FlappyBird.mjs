@@ -17,8 +17,10 @@ export const SpriteInfoList = {
   hero1:        { x:    0, y: 545, width:   34, height:  24, count:  4 },
   hero2:        { x:    0, y: 569, width:   34, height:  24, count:  4 },
   hero3:        { x:    0, y: 593, width:   34, height:  24, count:  4 },
-  obstacle:     { x:    0, y:   0, width:   52, height: 320, count:  4 },
-  background:   { x:  246, y:   0, width:  576, height: 512, count:  2 },
+  obstacle:     { x:  0, y:   0, width:   52, height: 320, count:  2 },
+  obstacleNight: {x:    -105, y:   0, width:   52, height: 320, count:  2 },
+  background:   { x:  246, y:   0, width:  576, height: 512, count:  1 },
+  backgroundNight: {x:  822, y:   0, width:  576, height: 512, count:  1 },
   flappyBird:   { x:    0, y: 330, width:  178, height:  50, count:  1 },
   ground:       { x:  246, y: 512, width: 1152, height: 114, count:  1 },
   numberSmall:  { x:  681, y: 635, width:   14, height:  20, count: 10 },
@@ -36,7 +38,7 @@ export const GameProps = {
   soundMuted: false,
   dayTime: true,
   speed: 1,
-  status: EGameStatus.idle, //For testing, normally EGameStatus.idle
+  status: EGameStatus.idle,
   background: null,
   ground: null,
   hero: null,
@@ -45,7 +47,7 @@ export const GameProps = {
   menu: null,
   score: 0,
   bestScore: 0,
-  sounds: { countDown: null, food: null, gameOver: null, dead: null, running: null },
+  sounds: { countDown: null, flap:null, food: null, gameOver: null, dead: null, running: null },
 };
 
 //--------------- Functions ----------------------------------------------//
@@ -64,7 +66,7 @@ function loadGame() {
   cvs.height = SpriteInfoList.background.height;
 
   let pos = new lib2d.TPosition(0, 0);
-  GameProps.background = new libSprite.TSprite(spcvs, SpriteInfoList.background, pos);
+  GameProps.background = new libSprite.TSprite(spcvs, GameProps.dayTime ? SpriteInfoList.background : SpriteInfoList.backgroundNight, pos);
   pos.y = cvs.height - SpriteInfoList.ground.height;
   GameProps.ground = new libSprite.TSprite(spcvs, SpriteInfoList.ground, pos);
   pos.x = 100;
@@ -75,6 +77,7 @@ function loadGame() {
 
   //Load sounds
   GameProps.sounds.countDown = new libSound.TSoundFile("./Media/countDown.mp3");
+  GameProps.sounds.flap = new libSound.TSoundFile("./Media/flap.mp3"); 
   GameProps.sounds.food = new libSound.TSoundFile("./Media/food.mp3");
   GameProps.sounds.gameOver = new libSound.TSoundFile("./Media/gameOver.mp3"); 
   GameProps.sounds.dead = new libSound.TSoundFile("./Media/heroIsDead.mp3"); 
@@ -113,6 +116,7 @@ function animateGame() {
   switch (GameProps.status) {
     case EGameStatus.playing:
       if (GameProps.hero.isDead) {
+        playSound(GameProps.sounds.dead.getAudioElement()); 
         GameProps.hero.animateSpeed = 0;
         GameProps.hero.update();
         return;
@@ -123,7 +127,6 @@ function animateGame() {
       }
       GameProps.hero.update();
       let delObstacleIndex = -1;
-
       for (let i = 0; i < GameProps.obstacles.length; i++) {
         const obstacle = GameProps.obstacles[i];
         obstacle.update();
@@ -153,10 +156,10 @@ function animateGame() {
       }
       if (delBaitIndex >= 0) {
         GameProps.baits.splice(delBaitIndex, 1);
-        playSound(GameProps.sounds.food);
+        playSound(GameProps.sounds.food.getAudioElement());
         GameProps.menu.incScore(10);
       }
-      break;
+      break; 
     case EGameStatus.idle:
       GameProps.hero.updateIdle();
       break;
@@ -164,7 +167,8 @@ function animateGame() {
 }
 
 function spawnObstacle() {
-  const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+  const spriteInfo = GameProps.dayTime ? SpriteInfoList.obstacle : SpriteInfoList.obstacleNight; 
+  const obstacle = new TObstacle(spcvs, spriteInfo);
   GameProps.obstacles.push(obstacle);
   if (GameProps.status === EGameStatus.playing) {
     const seconds = Math.ceil(Math.random() * 5) + 2;
@@ -191,6 +195,7 @@ export function startGame() {
   spawnObstacle();
   spawnBait();
   GameProps.sounds.running.play();
+  GameProps.sounds.flap.play(); 
 }
 
 //--------------- Event Handlers -----------------------------------------//
@@ -206,20 +211,24 @@ function setSoundOnOff() {
 } 
 
 function setDayNight() {
-  if (rbDayNight[0].checked) {
-    GameProps.dayTime = true;
-    console.log("Day time");
-  } else {
-    GameProps.dayTime = false;
-    console.log("Night time");
+  GameProps.dayTime = rbDayNight[0].checked; 
+
+  const bgUpdate = GameProps.dayTime ? SpriteInfoList.background : SpriteInfoList.backgroundNight; 
+  GameProps.background.setSpriteInfo(bgUpdate); 
+
+  const obsUpdate = GameProps.dayTime ? SpriteInfoList.obstacle : SpriteInfoList.obstacleNight; 
+  for(let obs of GameProps.obstacles) {
+    obs.setSpriteInfo(obsUpdate); 
   }
+  console.log(GameProps.dayTime ? "Day time" : "Night time"); 
 }
 
 function onKeyDown(aEvent) {
   switch (aEvent.code) {
-    case "Space":
+    case "Space": 
       if (!GameProps.hero.isDead) {
         GameProps.hero.flap();
+        playSound(GameProps.sounds.flap.cloneAudioElement());
       }
       break;
   }
@@ -232,3 +241,6 @@ rbDayNight[1].addEventListener("change", setDayNight);
 
 spcvs.loadSpriteSheet("./Media/FlappyBirdSprites.png", loadGame);
 document.addEventListener("keydown", onKeyDown);
+
+
+
