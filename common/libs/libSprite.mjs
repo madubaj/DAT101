@@ -115,6 +115,12 @@ class TSprite {
     this.boundingBox.y += aDy;
   }
 
+  setSpriteInfo(newSpriteInfo) {
+    this.#spi = newSpriteInfo; 
+    this.boundingBox.width = newSpriteInfo.width; 
+    this.boundingBox.height = newSpriteInfo.height; 
+  }
+
   get posX() {
     return this.#pos.x;
   }
