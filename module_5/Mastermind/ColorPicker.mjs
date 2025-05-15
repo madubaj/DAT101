@@ -52,7 +52,6 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
 
   onMouseDown(){
     super.onMouseDown();
-    //Få denne knappen til å være i det øverste laget
     const index = GameProps.colorPickers.indexOf(this);
     GameProps.colorPickers.splice(index, 1);
     GameProps.colorPickers.push(this);
@@ -65,9 +64,6 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
   }
 
   onCancelDrop(){
-    //Fjern denne knappen fra listen over knapper.
-    //Først finn indeksen til denne knappen
-    //Deretter fjern knappen fra listen
     if(this.#hasMoved){
       const index = GameProps.colorPickers.indexOf(this);
       GameProps.colorPickers.splice(index, 1);

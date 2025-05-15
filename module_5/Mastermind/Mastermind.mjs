@@ -14,7 +14,6 @@ import { TMenu } from "./menu.mjs";
 //------ Variables, Constants and Objects
 //--------------------------------------------------------------------------------------------------------------------
 
-// prettier-ignore
 export const SpriteInfoList = {
   Board:              { x: 640, y:   0, width: 441, height: 640, count: 1 },
   ButtonNewGame:      { x:   0, y:  45, width: 160, height:  45, count: 4 },
@@ -28,7 +27,6 @@ export const SpriteInfoList = {
 const cvs = document.getElementById("cvs");
 const spcvs = new libSprite.TSpriteCanvas(cvs);
 
-//Add all you game objects here
 export const GameProps = {
   board: null,
   colorPickers:[],
@@ -49,7 +47,6 @@ export const GameProps = {
 //--------------------------------------------------------------------------------------------------------------------
 
 export function newGame() {
-  //Vi må fjerne alle farger fra colorPickers, her ligger også player answers
   for(let i = 0; i < GameProps.colorPickers.length; i++){
     const colorPicker = GameProps.colorPickers[i];
     spcvs.removeSpriteButton(colorPicker);
@@ -61,7 +58,7 @@ export function newGame() {
   moveRoundIndicator();
 
   for(let i = 0; i < ColorKeys.length; i++){
-    const colorName = ColorKeys[i]; //Color name
+    const colorName = ColorKeys[i]; 
     const colorPicker = new TColorPicker(spcvs, SpriteInfoList.ColorPicker, colorName, i);
     GameProps.colorPickers.push(colorPicker);
   }
@@ -71,7 +68,6 @@ export function newGame() {
 
 function drawGame(){
   spcvs.clearCanvas();
-  //Draw all game objects here, remember to think about the draw order (layers in PhotoShop for example!)
   GameProps.board.draw();
 
   for(let i = 0; i < GameProps.computerAnswers.length; i++){
@@ -92,9 +88,6 @@ function drawGame(){
 }
 
 function generateComputerAnswer(){
-  //Først må vi genere 4 tilfeldige farger
-  //Deretter må vi plassere disse fargene i computerAnswers
-  //Vi må bruke libSprite.TSprite for å lage en sprite for hver farge
   for(let i = 0; i < 4 ; i++){
     const colorIndex = Math.floor(Math.random() * SpriteInfoList.ColorPicker.count);
     const pos = MastermindBoard.ComputerAnswer[i];
@@ -115,9 +108,7 @@ export function moveRoundIndicator(){
 //------ Event Handlers
 //--------------------------------------------------------------------------------------------------------------------
 
-//loadGame runs once when the sprite sheet is loaded
 function loadGame() {
-  //Set canvas with and height to match the sprite sheet
   cvs.width = SpriteInfoList.Board.width;
   cvs.height = SpriteInfoList.Board.height;
   spcvs.updateBoundsRect();
@@ -132,7 +123,7 @@ function loadGame() {
   GameProps.menu = new TMenu(spcvs);
 
   newGame();
-  requestAnimationFrame(drawGame); // Start the animation loop
+  requestAnimationFrame(drawGame); 
 }
 
 
