@@ -6,7 +6,6 @@ import { GameProps } from "./Mastermind.mjs";
 
 const Positions = MastermindBoard.ColorPicker;
 
-
 export class TColorPicker extends libSprite.TSpriteDraggable {
   #spcvs;
   #spi;
@@ -70,5 +69,4 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
       this.spcvs.removeSpriteButton(this); 
     }
   }
-
 } 

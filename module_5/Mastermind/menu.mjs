@@ -21,7 +21,6 @@ export class TMenu {
       SpriteInfoList.ButtonNewGame,
       MastermindBoard.ButtonNewGame);
     
-
     this.#buttonCheckAnswer = 
     new libSprite.TSpriteButtonHaptic(
       aSpriteCanvas,
@@ -123,7 +122,6 @@ export class TMenu {
     newGame();
   }
 
-  
   #createColorHint(posIndex, colorIndex){
     const pos = GameProps.answerHintRow[posIndex++];
     const colorHintSPI = SpriteInfoList.ColorHint;
@@ -148,5 +146,4 @@ export class TMenu {
       GameProps.playerAnswers[i] = null;
     }
   }
-
 } 

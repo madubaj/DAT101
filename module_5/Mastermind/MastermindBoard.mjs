@@ -1,5 +1,6 @@
 "use strict";
 
+
 const MastermindBoard = {
   ButtonNewGame:        {x: 275, y:  5},
   ButtonCheckAnswer:    {x: 275, y: 53},
